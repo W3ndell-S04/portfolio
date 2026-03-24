@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Wendell Soares | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#050806] text-white selection:bg-[#00FF41] selection:text-black overflow-x-hidden font-sans">
+    
+    <canvas id="matrix-canvas" class="fixed inset-0 z-0 opacity-30 pointer-events-none"></canvas>
+
+    <div class="min-h-screen flex justify-center items-start z-10 relative bg-transparent px-4 py-4 sm:py-10">
+        
+        <div class="relative flex w-full max-w-[550px] flex-col bg-[#0d1112]/95 backdrop-blur-xl shadow-2xl border border-white/5 rune-pattern overflow-hidden rounded-xl">
+            
+            <header class="flex items-center bg-[#0d1112]/90 p-4 sticky top-0 z-50 border-b border-[#00FF41]/20">
+                <div class="text-[#00FF41] flex size-10 shrink-0 items-center justify-center">
+                    <i data-lucide="terminal"></i>
+                </div>
+                <h2 class="text-white text-[10px] sm:text-xs font-bold tracking-widest flex-1 text-center font-mono uppercase">
+                    <span class="animate-pulse" id="username-display">OPERATOR: @WENDELLS04</span>
+                </h2>
+                <div class="flex gap-2">
+                    <button id="share-btn" class="flex items-center justify-center rounded-lg h-9 w-9 bg-[#00FF41]/10 text-[#00FF41] border border-[#00FF41]/30 hover:bg-[#00FF41]/20 transition-all">
+                        <i data-lucide="share-2" class="size-[16px]"></i>
+                    </button>
+                    <button id="panic-btn" class="flex items-center justify-center rounded-lg h-9 w-9 bg-red-500/10 text-red-500 border border-red-500/30 hover:bg-red-500/20 transition-all">
+                        <i data-lucide="shield-alert" class="size-[16px]"></i>
+                    </button>
+                </div>
+            </header>
+
+            <main class="flex-1 flex flex-col px-6 pt-8 pb-10 gap-8">
+                
+                <section class="flex flex-col items-center text-center gap-6">
+                    <div class="relative group">
+                        <div class="absolute -inset-1 rounded-full border border-[#00FF41]/30 glitch-border"></div>
+                        <div class="relative size-28 rounded-full overflow-hidden border-2 border-[#00FF41]/40 bg-[#1a2421]">
+                            <div class="scanner-line"></div>
+                            <img src="img/profile.png" alt="Wendell" id="profile-img" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="absolute bottom-1 right-1 h-4 w-4 bg-[#00FF41] rounded-full border-4 border-[#0d1112] z-20 shadow-[0_0_12px_rgba(0,255,65,0.8)] animate-pulse"></div>
+                    </div>
+                    <div>
+                        <h1 id="typewriter-name" class="text-white text-2xl font-bold mb-1 min-h-[32px]"></h1>
+                        <p class="text-[#00FF41] text-[10px] font-bold tracking-[0.4em] uppercase mb-4">Cybersecurity Student</p>
+                        <p id="typewriter-tagline" class="text-[#889999] text-sm max-w-[350px] mx-auto min-h-[40px]"></p>
+                    </div>
+                </section>
+
+                <section class="w-full font-mono text-[11px] border border-[#00FF41]/20 bg-black/60 p-4 rounded-lg tech-cut shadow-inner" id="terminal-container">
+                    <div id="terminal-output" class="mb-4 text-[#889999] h-40 overflow-y-auto scrollbar-hide space-y-1"></div>
+                    <div class="flex items-center gap-2 border-t border-[#00FF41]/10 pt-3">
+                        <span class="text-[#00FF41] font-bold shrink-0">root@valhalla:~$</span>
+                        <input type="text" id="terminal-input" class="bg-transparent border-none outline-none text-white flex-1 min-w-0 caret-[#00FF41]" autofocus autocomplete="off" spellcheck="false">
+                    </div>
+                </section>
+
+                <section class="w-full flex flex-col gap-4">
+                    <div class="flex items-center gap-2 border-b border-[#00FF41]/20 pb-2">
+                        <i data-lucide="link" class="size-4 text-[#00FF41]"></i>
+                        <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#00FF41]">Secure Access Links</h3>
+                    </div>
+                    <div id="links-container" class="grid grid-cols-1 gap-3">
+                        </div>
+                </section>
+
+                <section class="w-full flex flex-col gap-4">
+                    <div class="flex items-center gap-2 border-b border-[#00FF41]/20 pb-2">
+                        <i data-lucide="git-branch" class="size-4 text-[#00FF41]"></i>
+                        <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#00FF41]">GitHub Repositories</h3>
+                    </div>
+                    <div id="github-projects" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        </div>
+                </section>
+
+                <section class="w-full flex flex-col gap-4">
+                    <div class="flex items-center gap-2 border-b border-[#00FF41]/20 pb-2">
+                        <i data-lucide="award" class="size-4 text-[#00FF41]"></i>
+                        <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#00FF41]">Certifications</h3>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="bg-white/5 p-3 rounded border border-white/5 flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-help" title="Cisco Networking">
+                            <i data-lucide="shield-check" class="text-blue-400 size-6"></i>
+                        </div>
+                        <div class="bg-white/5 p-3 rounded border border-white/5 flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-help" title="TryHackMe">
+                            <i data-lucide="target" class="text-red-500 size-6"></i>
+                        </div>
+                        <div class="bg-white/5 p-3 rounded border border-white/5 flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-help" title="CompTIA Student">
+                            <i data-lucide="cpu" class="text-orange-400 size-6"></i>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+
+            <footer class="p-6 bg-black/40 border-t border-white/5 text-center">
+                <p class="text-[9px] font-mono tracking-[0.5em] text-[#00FF41]/40 uppercase">ROOT ACCESS // VALHALLA V4.0.2</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
