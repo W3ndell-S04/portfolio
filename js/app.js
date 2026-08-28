@@ -3,8 +3,6 @@
  * Operator: Wendell Soares
  */
 
-const GITHUB_USER = "W3ndell-S04";
-
 const profile = {
     name: "Wendell Soares",
     tagline: "Cybersecurity Student focused on Infrastructure, Red Teaming, and Digital Defense.",
@@ -18,10 +16,56 @@ const links = [
     { title: "Currículo VITAE", url: "https://drive.google.com/file/d/1xekSi3TsU8cMHBkqMcNkEbIIoWZUv0lX/view?usp=sharing", icon: "file-text", key: "cv" }
 ];
 
+// --- PROJETOS DESTACADOS (LIVE DEMOS) ---
+const projects = [
+    {
+        name: "FINFLOW",
+        key: "finflow",
+        url: "https://finflow-ew43.vercel.app/",
+        desc: "PWA para controle financeiro, permitindo gerenciar receitas, despesas e acompanhar a organização das finanças pessoais.",
+        tags: ["PWA", "FINANCEIRO"]
+    },
+    {
+        name: "WHEY PRO ANALYZER",
+        key: "whey",
+        url: "https://whey-pro-analyzer.vercel.app/",
+        desc: "análise nutricional e econômica de suplementos proteicos, permitindo avaliar pureza, custo-benefício e integridade dos produtos.",
+        tags: ["PWA", "ANALYSIS"]
+    },
+    {
+        name: "CALCASSI",
+        key: "calcassi",
+        url: "https://calcassi.vercel.app/",
+        desc: "Mecanismo de cálculo especializado para estimativas técnicas rápidas.",
+        tags: ["CALC", "UTILITARIO"]
+    },
+    {
+        name: "INSTA SHADOW ANALYZER",
+        key: "shadow",
+        url: "https://insta-shadow-analyzer1-0.vercel.app/",
+        desc: "analisar seguidores do Instagram e identificar quem você segue, mas não te segue de volta — de forma simples, rápida e segura..",
+        tags: ["INSTAGRAM", "SOCIAL"]
+    },
+    {
+        name: "BB TECH HUB",
+        key: "bbhub",
+        url: "https://bb-tech-hub.vercel.app/",
+        desc: "Centralizador de estudos para concurso BB TI.",
+        tags: ["ESTUDOS", "HUB"]
+    },
+    {
+        name: "COLLECTION ONE",
+        key: "collection",
+        url: "https://collection-one-beta.vercel.app/",
+        desc: "Catalogar Coleções.",
+        tags: ["COLEÇÃO", "INVENTÁRIO"]
+    }
+];
+
 let isPanic = false;
 let matrixChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*';
 
-// --- RENDERIZAR LINKS SOCIAIS (CORRIGIDO) ---
+// --- RENDERIZAR LINKS SOCIAIS ---
 function renderSocialLinks() {
     const container = document.getElementById('links-container');
     if (!container) return;
@@ -38,66 +82,76 @@ function renderSocialLinks() {
         </a>
     `).join('');
     
-    // Forçar renderização dos ícones após inserir o HTML
     if (window.lucide) {
         lucide.createIcons();
     }
 }
 
-// --- RENDERIZAR REPOS GITHUB (CORRIGIDO) ---
-async function fetchGithubRepos() {
+// --- RENDERIZAR PROJETOS (LIVE DEMOS) ---
+function renderFeaturedProjects() {
     const container = document.getElementById('github-projects');
     if (!container) return;
 
-    try {
-        const response = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=4`);
-        const repos = await response.json();
-
-        container.innerHTML = repos.map(repo => `
-            <a href="${repo.html_url}" target="_blank" class="p-4 rounded-lg bg-white/5 border border-white/5 hover:border-[#00FF41]/30 hover:bg-[#00FF41]/5 transition-all group">
+    container.innerHTML = projects.map(proj => `
+        <a href="${proj.url}" target="_blank" rel="noopener noreferrer" class="p-4 rounded-lg bg-white/5 border border-white/5 hover:border-[#00FF41]/40 hover:bg-[#00FF41]/5 transition-all group flex flex-col justify-between">
+            <div>
                 <div class="flex justify-between items-start mb-2">
-                    <span class="text-[#00FF41] font-mono text-[10px] font-bold truncate pr-2">${repo.name.toUpperCase()}</span>
-                    <i data-lucide="external-link" class="size-3 opacity-30 group-hover:opacity-100 transition-opacity"></i>
+                    <span class="text-[#00FF41] font-mono text-[11px] font-bold truncate pr-2">${proj.name}</span>
+                    <i data-lucide="external-link" class="size-3 opacity-30 group-hover:opacity-100 group-hover:text-[#00FF41] transition-opacity shrink-0"></i>
                 </div>
-                <p class="text-[9px] text-gray-500 line-clamp-2 mb-3">${repo.description || 'No documentation found.'}</p>
-                <div class="flex items-center gap-3 mt-auto text-[8px] font-mono opacity-40 uppercase">
-                    <span>${repo.language || 'Data'}</span>
-                    <span>★ ${repo.stargazers_count}</span>
-                </div>
-            </a>
-        `).join('');
-        
-        // Renderizar ícones dos cards do GitHub
-        if (window.lucide) {
-            lucide.createIcons();
-        }
-    } catch (e) {
-        container.innerHTML = `<p class="text-red-500 font-mono text-[10px]">GitHub API offline.</p>`;
+                <p class="text-[10px] text-gray-400 line-clamp-2 mb-3 leading-relaxed">${proj.desc}</p>
+            </div>
+            <div class="flex items-center gap-2 mt-auto text-[8px] font-mono opacity-50 uppercase">
+                ${proj.tags.map(tag => `<span class="bg-[#00FF41]/10 text-[#00FF41] px-1.5 py-0.5 rounded border border-[#00FF41]/20">${tag}</span>`).join('')}
+            </div>
+        </a>
+    `).join('');
+
+    if (window.lucide) {
+        lucide.createIcons();
     }
 }
 
 // --- TERMINAL ENGINE ---
 const commands = {
-    help: "Available: ls, cat [file], open [target], nmap, clear, status, projects",
-    ls: "Files: about.txt, skills.txt, certifications.pdf, writeups/ Targets: instagram, linkedin, github, cv",
+    help: "Available: ls, cat [file], cd [target], nmap, clear, status, projects",
+    ls: "Links: instagram/, linkedin/, github/, cv/ | Projects: finflow/, whey/, calcassi/, shadow/, bbhub/, collection/ | Files: about.txt, skills.txt, port-scanner-article.txt",
     whoami: () => `Identify: ${profile.name} // Status: Student`,
     status: () => `[SYSTEM] Up. Security: ${isPanic ? 'BREACHED' : 'STABLE'}`,
     clear: () => { document.getElementById('terminal-output').innerHTML = ""; return ""; },
-    projects: () => "Fetching GitHub data... See dashboard below.",
-   cd: (target) => {
-        // Remove a barra "/" caso o usuário digite "cd instagram/"
-        const cleanTarget = target ? target.replace('/', '') : null;
+    projects: () => "See the Live Demos dashboard below for active deployments.",
+    cd: (target) => {
+        if (!target) return "Usage: cd [target_directory]";
+        const cleanTarget = target.replace('/', '').toLowerCase();
         
+        // Buscar em Links Sociais
         const link = links.find(l => l.key === cleanTarget);
         if (link) {
             window.open(link.url, '_blank');
             return `Navegando para ${link.title}...`;
         }
+
+        // Buscar em Projetos
+        const proj = projects.find(p => p.key === cleanTarget);
+        if (proj) {
+            window.open(proj.url, '_blank');
+            return `Abrindo projeto ${proj.name}...`;
+        }
+
+        if (cleanTarget === "artigo" || cleanTarget === "port-scanner-article.txt") {
+            window.open("https://medium.com/@wendells04/criando-e-utilizando-um-port-scanner-em-python-4824d27a4755", '_blank');
+            return "Redirecionando para o artigo no Medium...";
+        }
+
         return `bash: cd: ${target}: No such directory.`;
     },
     cat: (file) => {
         if (file === "about.txt") return profile.tagline;
-        if (file === "skills.txt") return "Python, Linux, Networking, PenTesting.";
+        if (file === "skills.txt") return "Python, Linux, Networking, PenTesting, Infrastructure & Red Teaming.";
+        if (file === "port-scanner-article.txt") {
+            window.open("https://medium.com/@wendells04/criando-e-utilizando-um-port-scanner-em-python-4824d27a4755", '_blank');
+            return "Abrindo artigo no Medium: 'Criando e utilizando um Port Scanner em Python'...";
+        }
         return `cat: ${file}: Permission denied or file not found.`;
     },
     nmap: async () => {
@@ -165,9 +219,8 @@ window.addEventListener('load', () => {
     initMatrix();
     initTerminal();
     renderSocialLinks();
-    fetchGithubRepos();
+    renderFeaturedProjects();
     
-    // Iniciar ícones estáticos (do header e certificações)
     if (window.lucide) {
         lucide.createIcons();
     }
